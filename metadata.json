@@ -1,0 +1,8 @@
+{
+  "name": "QabasGo",
+  "description": "A comprehensive web application built with React, Express, and Tailwind CSS, designed to provide a seamless user experience for managing tasks, projects, and collaborations. QabasGo offers a robust set of features including user authentication, real-time notifications, and an intuitive interface for organizing and tracking work efficiently.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": []
+}

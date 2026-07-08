@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-primary-green: #1B5E20;
+  --color-primary-green-light: #2E7D32;
+  --color-primary-green-dark: #0F3D14;
+  
+  --color-primary-blue: #1565C0;
+  --color-primary-blue-light: #1E88E5;
+  
+  --color-success: #2E7D32;
+  --color-error: #C62828;
+  --color-warning: #F9A825;
+  --color-info: #1565C0;
+  
+  --color-surface: #F5F7FA;
+  --color-border-muted: #E0E0E0;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-gray-900 antialiased;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+    direction: rtl;
+  }
+}
+
+/* Transaction card typography — per-field sizes via CSS variables */
+:root {
+  --tx-title-size: 15px;
+  --tx-subtitle-size: 11px;
+  --tx-quantity-size: 11px;
+  --tx-meta-size: 11px;
+  --tx-amount-size: 16px;
+  --tx-balance-label-size: 10px;
+}
+
+.tx-card-title {
+  font-size: var(--tx-title-size);
+}
+
+.tx-card-subtitle {
+  font-size: var(--tx-subtitle-size);
+}
+
+.tx-card-quantity {
+  font-size: var(--tx-quantity-size);
+}
+
+.tx-card-meta {
+  font-size: var(--tx-meta-size);
+}
+
+.tx-card-amount {
+  font-size: var(--tx-amount-size);
+}
+
+.tx-card-balance-label {
+  font-size: var(--tx-balance-label-size);
+}
+
+html[data-a11y-contrast="high"] {
+  --color-primary-green: #0a3d12;
+  --color-primary-green-light: #1b5e20;
+  --color-primary-blue: #0d47a1;
+  --color-primary-blue-light: #1565c0;
+  --color-border-muted: #616161;
+  --color-surface: #f0f0f0;
+}
+
+html[data-a11y-contrast="high"] body {
+  color: #000000;
+}
+
+html[data-a11y-contrast="high"] .text-gray-400,
+html[data-a11y-contrast="high"] .text-gray-500 {
+  color: #424242;
+}
+
+html[data-a11y-outdoor="on"] {
+  --color-border-muted: #757575;
+  --color-surface: #ffffff;
+}
+
+html[data-a11y-outdoor="on"] body {
+  color: #000000;
+  font-weight: 500;
+}
+
+html[data-a11y-outdoor="on"] .text-gray-400,
+html[data-a11y-outdoor="on"] .text-gray-500 {
+  color: #212121;
+}
+
+html[data-a11y-outdoor="on"] .opacity-30 {
+  opacity: 0.65;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #E0E0E0;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #BDBDBD;
+}
+
+@keyframes speechBar {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes uploadIndeterminate {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+.upload-indeterminate-bar {
+  width: 33%;
+  animation: uploadIndeterminate 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .upload-indeterminate-bar {
+    animation: none;
+    width: 50%;
+  }
+}
+
+/*
+ * Mobile scroll compositor hardening.
+ * Mitigates Android Chrome GPU layer tearing / ghosting during vertical scroll.
+ */
+@media (hover: none) and (pointer: coarse) {
+  html {
+    overscroll-behavior-y: contain;
+  }
+
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #root,
+  .app-scroll-root {
+    isolation: isolate;
+  }
+
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    contain: paint;
+    isolation: isolate;
+  }
+
+  /* backdrop-filter commonly triggers scroll artifacts on Android GPUs */
+  :is([class*='backdrop-blur'], .backdrop-blur-sm, .backdrop-blur-md) {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Stabilize fixed UI chrome during document scroll */
+  .fixed-chrome {
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
+
